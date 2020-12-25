@@ -329,6 +329,11 @@ var firebaseConfig = {
 
     alert("資料讀取完成!!");
 
+    $("#myChart").remove();
+
+    $(".bar").append('<canvas id="myChart" width="490" height="500"></canvas>');
+
+
     //長條圖
     var ctx = $("#myChart");
 
@@ -344,7 +349,7 @@ var firebaseConfig = {
         datasets: [{ //圖表資料是一個array
             label: [null],
             data: [], //資料數值
-            backgroundColor: [], //滑鼠碰到會變黑....
+            backgroundColor: [], 
             borderColor: [],
             borderWidth: 3,
             hoverBackgroundColor: [],
@@ -352,7 +357,8 @@ var firebaseConfig = {
 
         }]
     },
-    options: { //圖表設定   
+    options: { //圖表設定  
+        // events: ['mousemove'],       
         scales: {
             yAxes: [{
                 ticks: {
@@ -369,74 +375,86 @@ var firebaseConfig = {
 
         //Labels顯示產品名稱
 
-        let pname = [];
+        var pname = [];
 
-        let glu = [];
+        var glu = [];
 
-        let color = ['rgba(126, 214, 223, 0.5)'];
+        var color = ['rgba(126, 214, 223, 0.5)'];
 
-        let bcolor = ['rgba(126, 214, 223, 1.0)'];
+        var bcolor = ['rgba(126, 214, 223, 1.0)'];
 
-        let hbgc = ['rgba(126, 214, 223, 0.5)'];
+        var hbgc = ['rgba(126, 214, 223, 0.5)'];
 
-        let hbc = ['rgba(255, 121, 121,1.0)']
+        var hbc = ['rgba(255, 121, 121,1.0)']
 
-        let row = document.getElementById("tab").rows.length;  //抓取table的列數
+        var row = document.getElementById("tab").rows.length;  //抓取table的列數
 
-        for(let j = 1; j < row; j++) //因為索引0是th，所以從1開始
+
+        //清空各欄位資料，以防資料殘留
+
+
+
+        //圖表標籤
+        for(var j = 1; j < row; j++) //因為索引0是th，所以從1開始
         {
           
           pname = $("#tab").find("tr").eq(j).children("td").eq(0).text(); //尋找tr的子元素td裡的文字內容
 
+          glu = $("#tab").find("tr").eq(j).children("td").eq(1).text();
+
           myChart.data.labels.push(pname); //新增labels字串內容
+
+          myChart.data.datasets.forEach((datasets) => { 
+
+          datasets.data.push(glu);//新增data字串內容
+
+          //色彩設定
+          datasets.backgroundColor.push(color);
+
+          datasets.borderColor.push(bcolor); 
+
+          datasets.hoverBackgroundColor.push(hbgc);
+
+          datasets.hoverBorderColor.push(hbc);
+
+          });
 
           myChart.update(); //更新myChart內容
           
           console.log(pname);
 
+          console.log(glu);
+
+          console.log(color);
+
+          console.log(bcolor);
+
         }
-
-        //data顯示Glu測試值
-
-        for(let k = 1; k < row; k++)
-        {
-         glu = $("#tab").find("tr").eq(k).children("td").eq(1).text();
-
-         myChart.data.datasets.forEach((datasets) => { //新增data字串內容
-
-         datasets.data.push(glu);
-
-         });
-
-         myChart.update();
-          
-         console.log(glu);
-       }
 
        //色彩配置
 
-       for(let l = 1; l < row; l++)
-       {
+       // for(let l = 1; l < row; l++)
+       // {
 
-         myChart.data.datasets.forEach((datasets) => { //新增data字串內容
+       //   myChart.data.datasets.forEach((datasets) => { //新增data字串內容
 
-         datasets.backgroundColor.push(color);
+       //   datasets.backgroundColor.push(color);
 
-         datasets.borderColor.push(bcolor); 
+       //   datasets.borderColor.push(bcolor); 
 
-         datasets.hoverBackgroundColor.push(hbgc);
+       //   datasets.hoverBackgroundColor.push(hbgc);
 
-         datasets.hoverBorderColor.push(hbc);
+       //   datasets.hoverBorderColor.push(hbc);
 
-         });
+       //   });
 
-         myChart.update();
+       //   myChart.update();
           
-         console.log(color);
+       //   console.log(color);
 
-         console.log(bcolor);
+       //   console.log(bcolor);
 
-       }
+       // }
 
 
 
@@ -504,8 +522,6 @@ var firebaseConfig = {
         alert("表格刪除成功!!");
 
         getdata();
-        // getdata();
-        window.location.reload();
 
         }).catch(function(error) {
 
