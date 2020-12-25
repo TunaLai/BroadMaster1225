@@ -10,9 +10,15 @@
 
   <style type="text/css">
 
+      padding: 0;
+      margin: 0;
+    }
+
     body{
+
       background-image: url(img/wallpaper.jpg);
       background-repeat: round;
+      position: relative;
     }
 
     td /*設定表格文字左右和上下居中對齊*/
@@ -42,7 +48,13 @@
     opacity: 0.8;
 
     }
-    
+    form{
+    font-family: 微軟正黑體; 
+
+    font-size:20px;
+
+    color: white;
+    }
     .web{
 
       width: 1000px;
@@ -61,6 +73,27 @@
       margin: 0 20px;
         }
 
+    #tab{
+      border:1px solid #000; 
+      font-family: 微軟正黑體; 
+      font-size:16px; 
+      width:498px;
+      border:1px solid #000;
+      text-align:center;
+      border-collapse:collapse;
+    }
+
+    #tab th{ 
+      background-color: #009FCC;
+      padding:10px;
+      border:1px solid #000;
+      color:#fff;
+    } 
+    #tab td{ 
+      border:1px solid #000;
+      padding:5px;
+    } 
+
     .chart{
       display: flex;
       width: 1000px;
@@ -69,11 +102,11 @@
 
     .bar{
       width: 490px;
-      margin: 0 5px;}
+      margin: auto;}
 
     .pie{
       width: 490px;
-      margin: 0 5px;}
+      margin: auto;}
 
     hr{
     border: 0;
@@ -84,6 +117,16 @@
 
     tr th{
       color: #D7FFEE;
+    }
+
+    .footer{
+      text-align: center;
+      background-color: #000;
+      color: #aaa;
+      font-size: 16px;
+      position: absolute;
+      left: 0;
+      right: 0;
     }
 
 
@@ -160,7 +203,7 @@
 
 <!-- <button onclick="getdata()">讀取表格</button> -->
 
-<table id="tab" style="border:3px #FFD382 dashed;" cellpadding="10" border="1">
+<table id="tab">
 
 <tr>
 
@@ -329,6 +372,7 @@ var firebaseConfig = {
 
     alert("資料讀取完成!!");
 
+    //表格重新繪製，避免重複
     $("#myChart").remove();
 
     $(".bar").append('<canvas id="myChart" width="490" height="500"></canvas>');
@@ -493,7 +537,7 @@ var firebaseConfig = {
          i = i - 1;
      }
 
-    tab.innerHTML ='<table>' +'<tr style="border:3px #FFD382 dashed;" cellpadding="10" border="1">' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Desctiption'+ '</th>' + '<th>' + 'creatorors' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
+    tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Desctiption'+ '</th>' + '<th>' + 'creatorors' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
  
 
 }
@@ -563,18 +607,17 @@ console.log("初始化成功!");
 
 <script>
 
-var ref = db.collection('biotech').get().then(result => {
+// var ref = db.collection('biotech').get().then(result => {
     
-  result.forEach(doc => {
+//   result.forEach(doc => {
 
-    var Name = doc.data().Projectname;
-    var sn = doc.data().Glu;
-    var desctiption = doc.data().Desctiption;
-    var creator = doc.data().creator;
-    var len = ('A').length; //指定誰當for迴圈次數判別
+//     var Name = doc.data().Projectname;
+//     var sn = doc.data().Glu;
+//     var desctiption = doc.data().Desctiption;
+//     var creator = doc.data().creator;
 
-    });
-  });
+//     });
+//   });
 
 </script>
 
@@ -627,6 +670,10 @@ var myChart = new Chart(ctx, {
 
 </div>
 
+</div>
+
+<div class="footer">
+    &copy; copyright 2020.12.25 by Tuna
 </div>
 
 </body>
