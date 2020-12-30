@@ -8,11 +8,20 @@
 
 	<title>firebase測試</title>
 
-  	<style type="text/css">
+  <style type="text/css">
+
+    *{
+      padding: 0;
+      margin: 0;
+    }
 
     body{
       background-image: url("img/wallpaper.jpg");
-      background-repeat: round;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      /*position: relative;*/
     }
 
     td /*設定表格文字左右和上下居中對齊*/
@@ -42,37 +51,41 @@
     opacity: 0.8;
 
     }
-    form{
-    font-family: 微軟正黑體; 
-
-    font-size:20px;
-
-    color: white;
-    }
-    .web{
-
+      form{
+      font-family: 微軟正黑體; 
+      
+      font-size:20px;
+      
+      color: white;
+      }
+      .web{
+      
       width: 1000px;
       margin: auto;
       display: flex;
+      
+      }
 
-    }
-
-    .information{
+      /*@media screen and (max-width: 1000px){
+        .web{
+             width: 100vw;
+           }
+      }*/
+      
+      .information{
       width: 460px;
       margin: 0 20px;
-    }
+      }
 
     .data{
-      width: 460px;
-      margin: 0 20px;
+      width: 500px;
         }
 
     #tab{
-      border:1px solid #000; 
+      border:2px solid #000; 
       font-family: 微軟正黑體; 
       font-size:16px; 
       width:498px;
-      border:1px solid #000;
       text-align:center;
       border-collapse:collapse;
     }
@@ -106,15 +119,12 @@
     border: 0;
     height: 1px;
     background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
     }
 
     tr th{
       color: #D7FFEE;
     }
-
-    textarea{
-             resize:none;
-           }
 
     .footer{
       text-align: center;
@@ -124,6 +134,7 @@
       position: absolute;
       left: 0;
       right: 0;
+      width:100%;
     }
 
 
@@ -135,8 +146,8 @@
 
 <!-- html -->
 
-<body>
- 
+<body> <!-- 顯示時間攔位 -->
+
 <!-- chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
@@ -164,7 +175,7 @@
 
 <br><br>
 
-<button onclick ="sig()">註冊</button>
+<input type="button" value="註冊帳號" onclick="sig()">
 
 <br><br>
 
@@ -269,6 +280,21 @@ var firebaseConfig = {
   //設定變數db存放firebase.firestore()
   var db = firebase.firestore();
 
+
+  //帳號密碼註冊
+  function sig() {
+
+  var email = document.getElementById('mail').value;
+
+  var password = document.getElementById('password').value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password);
+
+  console.log(email, password);
+
+  alert('註冊成功!!');
+
+}
 
   //新增資料
   function storedata() {
@@ -472,35 +498,6 @@ var firebaseConfig = {
 
         }
 
-       //色彩配置
-
-       // for(let l = 1; l < row; l++)
-       // {
-
-       //   myChart.data.datasets.forEach((datasets) => { //新增data字串內容
-
-       //   datasets.backgroundColor.push(color);
-
-       //   datasets.borderColor.push(bcolor); 
-
-       //   datasets.hoverBackgroundColor.push(hbgc);
-
-       //   datasets.hoverBorderColor.push(hbc);
-
-       //   });
-
-       //   myChart.update();
-          
-       //   console.log(color);
-
-       //   console.log(bcolor);
-
-       // }
-
-
-
-
-
   })
 
   .catch(err => {
@@ -508,16 +505,6 @@ var firebaseConfig = {
     alert("資料讀取失敗!!")
   });
 
-}
-
-  //帳號密碼註冊
-  function sig() {
-
-  var email = document.getElementById('mail').value;
-
-  var password = document.getElementById('password').value;
-
-  firebase.auth().createUserWithEmailAndPassword(email, password);
 }
 
   //清除表格
@@ -582,19 +569,9 @@ var firebaseConfig = {
 
     }
 
-        
-      
-    
-
-//顯示資料
-console.log("初始化成功!");
-
-
 </script>
 
 <!-- 圖表 -->
-
-
 
 <div class="chart">
   
