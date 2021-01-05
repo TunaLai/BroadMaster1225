@@ -166,12 +166,11 @@
 
 <form>
 
-
-輸入帳號 : <input id="mail" type="email">
+輸入帳號 : <input id="mail" type="email" placeholder="email帳號">
 
 <br><br>
 
-輸入密碼 : <input id="password" type="password">
+輸入密碼 : <input id="password" type="password" placeholder="6個含以上的英文及數字">
 
 <br><br>
 
@@ -284,16 +283,54 @@ var firebaseConfig = {
   //帳號密碼註冊
   function sig() {
 
+  //取得帳號密碼輸入欄位的值
   var email = document.getElementById('mail').value;
 
   var password = document.getElementById('password').value;
 
-  firebase.auth().createUserWithEmailAndPassword(email, password);
+  //Regular Expression 的語法確認用設定，前後用//包起來
+  var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
 
-  console.log(email, password);
+  //6個含以上的英文及數字，不可包含其他字元
+  var passRule = /(?!^[0-9]{6,}$)(?!^[a-zA-Z]{6,}$)^[0-9a-zA-Z]{6,}$/
 
-  alert('註冊成功!!');
+  //判斷帳號、密碼格式
+  if(email.search(emailRule)!= -1){
 
+        if(password.search(passRule)!= -1){
+
+        firebase.auth().createUserWithEmailAndPassword(email, password);
+
+        console.log(email, password);
+
+        alert('註冊成功!!');
+
+        //註冊成功後清空錯誤訊息顏色
+        $("#mail, #password").css("background", "#ffffff");
+
+        //清除上一筆註冊資料
+        $("#mail, #password").val("");
+
+        }
+
+        else{
+
+        $("#mail, #password").css("background", "#ffffff");
+
+        alert('密碼輸入錯誤,必須包含 6 個(含)以上的英文及數字\n且不能包含英數字以外的字元');
+
+        $("#password").css("background", "#ff6b81");
+
+        }
+     }
+
+  else{
+      
+      alert('帳號輸入錯誤,必須為電子郵件格式且不能包含英數字以外的字元');
+
+      $("#mail").css("background", "#ff6b81");
+  
+  }
 }
 
   //新增資料
