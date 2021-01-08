@@ -34,6 +34,7 @@
     textarea{
       min-height: 60px;
       min-width: 200px;
+      resize: none;
     }
 
     img{
@@ -81,6 +82,28 @@
       width: 500px;
         }
 
+    #infor{
+      border:2px solid #000; 
+      font-family: 微軟正黑體; 
+      font-size:16px; 
+      width:488px;
+      text-align:center;
+      border-collapse:collapse;
+      display: none;
+
+    }
+
+    #infor th{ 
+      background-color: #009FCC;
+      padding:10px;
+      border:1px solid #000;
+      color:#fff;
+    } 
+    #infor td{ 
+      border:1px solid #000;
+      padding:5px;
+    }
+
     #tab{
       border:2px solid #000; 
       font-family: 微軟正黑體; 
@@ -126,6 +149,14 @@
       color: #D7FFEE;
     }
 
+    .userID{
+            display: none;
+          }
+
+    .LogOut{
+            display: none;
+          }
+
     .footer{
       text-align: center;
       background-color: #000;
@@ -166,6 +197,10 @@
 
 <form>
 
+<p class="userID"></p>
+
+<div class="userdata">
+  
 輸入帳號 : <input id="mail" type="email" placeholder="email帳號">
 
 <br><br>
@@ -174,7 +209,33 @@
 
 <br><br>
 
-<input type="button" value="註冊帳號" onclick="sig()">
+</div>
+
+
+
+<input class="sig" type="button" value="註冊帳號" onclick="sig()">
+
+<!-- <input class="check" type="button" value="確認帳號" onclick="check()"> -->
+
+<input class="LogIn" type="button" value="登入" onclick="LogIn()">
+
+<input class="LogOut" type="button" value="登出帳號" onclick="LogOut()">
+
+<input class ="GM"type="button" value="管理者模式" onclick="GMmode()">
+
+<table id="infor">
+
+<tr>
+
+<th>User id</th>
+
+<th>Password</th>
+
+<th>button</th>
+
+</tr>
+        
+</table>
 
 <br><br>
 
@@ -203,12 +264,7 @@
 
  <br>
 
-<!--按鈕觸發storedata function-->
 <div class="data">
-  
-<!-- <button onclick="storedata()"> 寫入資料</button> -->
-
-<!-- <button onclick="getdata()">讀取表格</button> -->
 
 <table id="tab">
 
@@ -253,6 +309,8 @@
 
 <script>
 	
+  (function(){
+  
   //網頁應用程式碼
 
 var firebaseConfig = {
@@ -275,18 +333,56 @@ var firebaseConfig = {
   //分析firebase
   firebase.analytics();
  
-
   //設定變數db存放firebase.firestore()
   var db = firebase.firestore();
+
+
+  //帳號登入中的狀態和登出的判別
+
+
+  //確認目前登入帳號，測試用
+  function check(){
+
+    var user = firebase.auth().currentUser; //確認當前用戶
+
+      if(user){
+
+      alert("目前登入中~")
+
+      console.log(user.email);
+
+      }
+                      
+      else{
+      //確認目前登入帳號
+      // console.log(JSON.parse(JSON.stringify(user.email)));
+      alert("沒有人在家哦");
+      } 
+
+  }
+
+  function GMmode(){
+
+    var user = firebase.auth().currentUser; //確認當前用戶
+
+    var ck = user.email;
+
+    // var email = $('#mail').val();
+      
+    // var password = $('#password').val();
+
+    // if(ck === "")
+
+  }
 
 
   //帳號密碼註冊
   function sig() {
 
   //取得帳號密碼輸入欄位的值
-  var email = document.getElementById('mail').value;
+  var email = $('#mail').val();
 
-  var password = document.getElementById('password').value;
+  var password = $('#password').val();
 
   //Regular Expression 的語法確認用設定，前後用//包起來
   var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
@@ -300,6 +396,15 @@ var firebaseConfig = {
         if(password.search(passRule)!= -1){
 
         firebase.auth().createUserWithEmailAndPassword(email, password);
+
+        db.collection("profiles").doc(email).set({ 
+        //文件裡的集合
+        
+        userid: email,
+        
+        userpw: password
+        
+        }); 
 
         console.log(email, password);
 
@@ -332,6 +437,78 @@ var firebaseConfig = {
   
   }
 }
+
+  //帳號登入
+  function LogIn(){
+
+    //取得帳號密碼輸入欄位的值
+    var email = $('#mail').val();
+      
+    var password = $('#password').val();
+
+
+    //驗證auth的帳號密碼，並顯示登入成功與失敗的畫面
+
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+
+    alert("登入成功!!");
+
+    //登入成功時隱藏登入、註冊、輸入介面
+    $(".LogIn, .sig, .userdata").hide();
+
+    $(".userID").css("display", "block");
+
+    $(".LogOut").css("display", "block");
+
+    $(".userID").append("歡迎您&nbsp;" + email);
+
+    }).catch(function(error) {
+
+    // Handle Errors here.
+
+    alert("登入失敗!! 請檢查帳號密碼是否正確");
+
+    var errorCode = error.code;
+
+    var errorMessage = error.message;
+
+    console.log(errorCode);
+
+    console.log(errorMessage);
+
+    // ...
+
+    });
+
+
+  }
+
+  //帳號登出              
+  function LogOut(){
+
+    firebase.auth().signOut().then(function() {
+
+    alert('您已登出成功~');
+
+    $(".LogIn, .sig, .userdata").show();
+
+    $(".LogOut").css("display", "none");
+
+    $(".userID").css("display", "none");
+
+    $(".userID").empty();
+
+    //log顯示Null即為登出
+    var user = firebase.auth().currentUser;
+
+    console.log(user);
+
+    })
+
+  }
+
+  function LoadUserData(){
+                          }
 
   //新增資料
   function storedata() {
@@ -604,7 +781,7 @@ var firebaseConfig = {
       }
 
 
-    }
+    }})($)
 
 </script>
 
