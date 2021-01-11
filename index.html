@@ -308,10 +308,8 @@
 
 
 <script>
-	
-  (function(){
-  
-  //網頁應用程式碼
+
+//網頁應用程式碼
 
 var firebaseConfig = {
     apiKey: "AIzaSyBAEfHCPVeRoj_taVdUGoHmgJjNtdgIS5U",
@@ -385,10 +383,10 @@ var firebaseConfig = {
   var password = $('#password').val();
 
   //Regular Expression 的語法確認用設定，前後用//包起來
-  var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+  var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
   //6個含以上的英文及數字，不可包含其他字元
-  var passRule = /(?!^[0-9]{6,}$)(?!^[a-zA-Z]{6,}$)^[0-9a-zA-Z]{6,}$/
+  var passRule = /(?!^[0-9]{6,}$)(?!^[a-zA-Z]{6,}$)^[0-9a-zA-Z]{6,}$/;
 
   //判斷帳號、密碼格式
   if(email.search(emailRule)!= -1){
@@ -480,8 +478,7 @@ var firebaseConfig = {
 
     });
 
-
-  }
+}
 
   //帳號登出              
   function LogOut(){
@@ -507,8 +504,8 @@ var firebaseConfig = {
 
   }
 
-  function LoadUserData(){
-                          }
+  // function LoadUserData(){
+  //                         }
 
   //新增資料
   function storedata() {
@@ -781,7 +778,7 @@ var firebaseConfig = {
       }
 
 
-    }})($)
+    }
 
 </script>
 
