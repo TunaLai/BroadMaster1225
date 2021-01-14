@@ -31,12 +31,6 @@
       padding: 9px;
     }
 
-    textarea{
-      min-height: 60px;
-      min-width: 200px;
-      resize: none;
-    }
-
     img{
 
     display: block;
@@ -52,31 +46,31 @@
     opacity: 0.8;
 
     }
-      form{
-      font-family: 微軟正黑體; 
+    form{
+    font-family: 微軟正黑體; 
       
-      font-size:20px;
+    font-size:20px;
       
-      color: white;
-      }
-      .web{
+    color: white;
+    }
+    .web{
       
-      width: 1000px;
-      margin: auto;
-      display: flex;
+    width: 1000px;
+    margin: auto;
+    display: flex;
       
-      }
+    }
 
-      /*@media screen and (max-width: 1000px){
-        .web{
-             width: 100vw;
-           }
-      }*/
+    /*@media screen and (max-width: 1000px){
+      .web{
+           width: 100vw;
+         }
+    }*/
       
-      .information{
-      width: 460px;
-      margin: 0 20px;
-      }
+    .information{
+    width: 460px;
+    margin: 0 20px;
+    }
 
     .data{
       width: 500px;
@@ -86,10 +80,11 @@
       border:2px solid #000; 
       font-family: 微軟正黑體; 
       font-size:16px; 
-      width:488px;
       text-align:center;
+      width: 100%;
       border-collapse:collapse;
       display: none;
+      margin: 10px 0px 10px 0px;
 
     }
 
@@ -102,6 +97,7 @@
     #infor td{ 
       border:1px solid #000;
       padding:5px;
+      color:#130f40;
     }
 
     #tab{
@@ -185,6 +181,9 @@
 <!-- JQuery -->
 <script src="js/jquery.min.js"></script>
 
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 <img src="img/Logo.jpg" alt="博通生技">
 
 <hr> <!-- 水平線 -->
@@ -201,27 +200,34 @@
 
 <div class="userdata">
   
-輸入帳號 : <input id="mail" type="email" placeholder="email帳號">
+<div class= "form-group userdata">
 
-<br><br>
-
-輸入密碼 : <input id="password" type="password" placeholder="6個含以上的英文及數字">
-
-<br><br>
+<label for="exampleInputEmail1">Email address</label>
+  
+<input id="mail" class="form-control" aria-describedby="emailHelp" type="email" placeholder="請輸入完整的Email帳號">
 
 </div>
 
+<div class="form-group userdata">
+
+<label for="exampleInputPassword1">Password</label>
+
+<input id="password" class="form-control" type="password" placeholder="6個含以上的英文及數字">
 
 
-<input class="sig" type="button" value="註冊帳號" onclick="sig()">
+</div>
 
-<!-- <input class="check" type="button" value="確認帳號" onclick="check()"> -->
+</div>
 
-<input class="LogIn" type="button" value="登入" onclick="LogIn()">
+<input class="sig btn btn-primary" type="button" value="註冊帳號" onclick="sig()">
 
-<input class="LogOut" type="button" value="登出帳號" onclick="LogOut()">
+<!-- <input class="check btn btn-primary" type="button" value="確認帳號" onclick="check()"> -->
 
-<input class ="GM"type="button" value="管理者模式" onclick="GMmode()">
+<input class="LogIn btn btn-primary" type="button" value="登入" onclick="LogIn()">
+
+<input class="LogOut btn btn-primary" type="button" value="登出帳號" onclick="LogOut()">
+
+<input class ="GM btn btn-primary"type="button" value="管理者模式" onclick="GMmode()">
 
 <table id="infor">
 
@@ -237,25 +243,26 @@
         
 </table>
 
-<br><br>
+<div class="form-group">
+  <label for="project">Project Name</label>
+  <input type="text" class="form-control" id="PName">
+</div>
+<div class="form-group">
+  <label for="test value">Test Value</label>
+  <input type="text" class="form-control" id="tvalue">
+</div>
+<div class="form-group">
+  <label for="description">Description</label>
+  <textarea id="desctip" class="form-control" rows="3" placeholder="請輸入產品敘述"></textarea>
+</div>
+<div class="form-group">
+  <label for="creator">Creator</label>
+  <input type="text" class="form-control" id="creator">
+</div>
 
-產品名稱 : <input id = PName type="text">
+<input class="btn btn-primary" type="button" value="寫入資料" onclick="storedata()">
 
-<br><br>
-
-輸入Glu : <input id = tvalue type="tel">
-
-<br><br>
-
-產品描述: <textarea id = desctip cols = "10" rows = "3" placeholder="請輸入產品敘述"></textarea>
-
-<br><br>
-
-測試人員: <input id = creator type="text">
-
-<input type="button" value="寫入資料" onclick="storedata()">
-
-<input type="button" value="讀取資料" onclick="getdata()">
+<input class="btn btn-primary" type="button" value="讀取資料" onclick="getdata()">
 
 
 </form>
@@ -308,7 +315,6 @@
 
 
 <script>
-
 //網頁應用程式碼
 
 var firebaseConfig = {
@@ -338,6 +344,9 @@ var firebaseConfig = {
   //帳號登入中的狀態和登出的判別
 
 
+  //修正boostrap未隱藏問題
+  $(".LogOut").css("display", "none");
+
   //確認目前登入帳號，測試用
   function check(){
 
@@ -359,19 +368,107 @@ var firebaseConfig = {
 
   }
 
+  //管理者模式認證
+
   function GMmode(){
 
-    var user = firebase.auth().currentUser; //確認當前用戶
+    //取得當前用戶的email
+    var email = $('#mail').val();
 
-    var ck = user.email;
+    //取得當前用戶的password
+    var password = $('#password').val();
 
-    // var email = $('#mail').val();
-      
-    // var password = $('#password').val();
+    //驗證碼
+    var passcode1 = "dHVuYTAzMjBAZ21haWwuY29tLnR3";
 
-    // if(ck === "")
+    var passcode2 = "MzIwMzIwbg==";
 
+    var encodeStr1 = encode(email);
+
+    var encodeStr2 = encode(password);
+
+    function encode(str) {
+
+    return btoa(str); //將字串轉換
+
+    }
+
+    if(encodeStr1 === passcode1 && encodeStr2 === passcode2){
+
+       alert("歡迎你，志學");
+
+       $(".LogIn, .sig").hide();
+
+       $(".LogOut").show();
+
+       //介面功能
+       $("#infor").show(); //顯示隱藏的表格
+
+       reset(infor); //表格reset以防重覆顯示
+
+       firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+
+        alert("登入成功!!");
+
+        //登入成功時隱藏登入、註冊、輸入介面
+        $(".LogIn, .sig, .userdata").hide();
+
+        $(".userID").css("display", "block");
+
+        $(".userID").append("歡迎您&nbsp;" + email);
+
+        $(".LogOut").show();
+
+        }).catch(function(error) {
+
+        // Handle Errors here.
+
+        alert("登入失敗!! 請檢查帳號密碼是否正確");
+
+        var errorCode = error.code;
+
+        var errorMessage = error.message;
+
+        console.log(errorCode);
+
+        console.log(errorMessage);
+
+        // ...
+
+        });
+
+       var ref = db.collection('profiles').get().then(result => {
+    
+        result.forEach(doc => {
+
+        var userID = doc.data().userid;
+        var userPW = doc.data().userpw;
+        
+        //自動新增表單
+
+        var infor = document.getElementById('infor');
+        
+        for(var i = 0; i < 1; i++){
+        
+        infor.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().userid + '</td>' + '<td>' + doc.data().userpw + '</td>' + '<td>' + '<button onclick = "delUser(this);" class = "btn btn-info">' + '刪除' + '</button>' + '</td>' + '</tr>' + '</table>'; 
+        }
+        
+        });
+
+        
+        alert("資料讀取完成!!");
+        
+        }).catch(err => {
+        console.log('Error getting documents', err);
+        alert("資料讀取失敗!!")
+        });
+    }
+
+    else{
+         alert("此功能只供管理員使用!!");
+    }
   }
+
 
 
   //帳號密碼註冊
@@ -456,9 +553,9 @@ var firebaseConfig = {
 
     $(".userID").css("display", "block");
 
-    $(".LogOut").css("display", "block");
-
     $(".userID").append("歡迎您&nbsp;" + email);
+
+    $(".LogOut").show();
 
     }).catch(function(error) {
 
@@ -494,6 +591,11 @@ var firebaseConfig = {
     $(".userID").css("display", "none");
 
     $(".userID").empty();
+
+    //登出後將帳號密碼欄位清空
+    $("#mail, #password").val("");
+
+    $("#infor").hide();
 
     //log顯示Null即為登出
     var user = firebase.auth().currentUser;
@@ -574,7 +676,7 @@ var firebaseConfig = {
  function getdata() {
 
   //清空目前表格(以防資料重疊)
-  reset();
+  reset(tab);
 
   var ref = db.collection('biotech').get().then(result => {
     
@@ -595,12 +697,8 @@ var firebaseConfig = {
 
         for(var i = 0; i < 1; i++){
 
-        tab.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().Projectname + '</td>' + '<td>' + doc.data().Glu + '</td>' + '<td id>' + doc.data().Desctiption + '</td>' + '<td>' + doc.data().creator + '</td>' + '<td>' + '<button onclick = "del(this);" class = "btn">' + '刪除' + '</button>' + '</td>' + '</tr>' + '</tablr>'; 
+        tab.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().Projectname + '</td>' + '<td>' + doc.data().Glu + '</td>' + '<td>' + doc.data().Desctiption + '</td>' + '<td>' + doc.data().creator + '</td>' + '<td>' + '<button onclick = "del(this);" class = "btn btn-info">' + '刪除' + '</button>' + '</td>' + '</tr>' + '</table>'; 
         }
-
-        //搜尋不要放這，表格剛建立完會來不及抓
-
-
 
     });
 
@@ -719,23 +817,45 @@ var firebaseConfig = {
 }
 
   //清除表格
-  function reset(){
+  function reset(item){
 
-    var rowNum = tab.rows.length;
+      if(item === tab){
 
-     for (i = 0; i < rowNum; i++)
-     {
-         tab.deleteRow(i);
+          var rowNum = tab.rows.length;
+      
+           for (i = 0; i < rowNum; i++)
+           {
+               tab.deleteRow(i);
+      
+               rowNum = rowNum - 1;
+      
+               i = i - 1;
+           }
+      
+      tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Desctiption'+ '</th>' + '<th>' + 'creatorors' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
+      }
 
-         rowNum = rowNum - 1;
+      else if(item === infor){
 
-         i = i - 1;
-     }
+          var rowNum = infor.rows.length;
+      
+           for (i = 0; i < rowNum; i++)
+           {
+               infor.deleteRow(i);
+      
+               rowNum = rowNum - 1;
+      
+               i = i - 1;
+           }
+      
+      infor.innerHTML ='<table>' +'<tr>' + '<th>' +'User id'+ '</th>' + '<th>' +'Password'+ '</th>' + '<th>' +'button'+ '</th>' + '</tr>' + '</table>';
+    }
 
-    tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Desctiption'+ '</th>' + '<th>' + 'creatorors' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
- 
-
-}
+      else{
+           alert("母湯哦!!");
+         }
+    
+ }
 
   
   //刪除資料
@@ -743,15 +863,30 @@ var firebaseConfig = {
 
         //取得table裡的目標列數
 
-        var table = $("#tab");
-
         var x = $(obj).parent().parent().find("td"); //取得botton父元素位置--> <td> --> <tr>再尋找<td>
 
         var msg = x.eq(0).text(); //從<tr>開始搜尋<td>，指定x的第0列內容
+
+        var user = firebase.auth().currentUser; //取得當前登入者資訊
+
+        //刪除資料的密碼依照登入者的密碼設定
+        var pw = $("#password").val();
         
         //確認是否刪除按鈕 co0nfirm
 
-        if(confirm("確實要刪除"+ " " + msg + " " + "嗎?")){
+        //prompt() 執行後會返回使用者輸入的字串 (或得到空字串)，如果使用者按取消按鈕則會返回 null
+
+        var passID = prompt("請輸入密碼");
+
+        // var encodeStr = encode(passID);
+
+        // function encode(str) {
+
+        // return btoa(str); //字串轉換
+
+        // }
+
+        if(confirm("確實要刪除"+ " " + msg + " " + "嗎?") && pw === passID){
 
         //確實可以刪除行列取得的值
         db.collection("biotech").doc(msg).delete().then(function() {
@@ -772,12 +907,48 @@ var firebaseConfig = {
     
         else{
 
+          alert("由於密碼錯誤或其他因素，已取消了刪除操作");
+
+      }
+    }
+
+    function delUser(user){
+
+        //取得table裡的目標列數
+
+        var x = $(user).parent().parent().find("td"); //取得botton父元素位置--> <td> --> <tr>再尋找<td>
+
+        var msg = x.eq(0).text(); //從<tr>開始搜尋<td>，指定x的第0列內容
+
+        
+        //確認是否刪除按鈕 co0nfirm
+
+        if(confirm("確實要刪除"+ " " + msg + " " + "嗎???")){
+
+        //確實可以刪除行列取得的值
+        db.collection("profiles").doc(msg).delete().then(function() {
+
+        console.log("Document successfully deleted!");
+
+        alert("表格刪除成功!!");
+
+        // getdata();
+
+        }).catch(function(error) {
+
+        console.error("Error removing document: ", error);
+
+       });
+
+      }
+    
+        else{
+
           alert("已經取消了刪除操作");
 
-          // var y = $("#tab").find("td").eq(0).text();//EG153
+          event.preventDefault(); //取消自動重整的問題事件
+
       }
-
-
     }
 
 </script>
