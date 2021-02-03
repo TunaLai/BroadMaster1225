@@ -1,4 +1,3 @@
-
 //網頁應用程式碼
 var firebaseConfig = {
     apiKey: "AIzaSyBAEfHCPVeRoj_taVdUGoHmgJjNtdgIS5U",
@@ -531,7 +530,7 @@ var firebaseConfig = {
                i = i - 1;
            }
       
-      tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Desctiption'+ '</th>' + '<th>' + 'creatorors' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
+      tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Caption'+ '</th>' + '<th>' + 'creator' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
       }
 
       else if(item === infor){

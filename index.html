@@ -6,6 +6,8 @@
 
 	<meta charset="UTF-8">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>firebase測試</title>
 
   <style type="text/css">
@@ -21,7 +23,6 @@
       background-attachment: fixed;
       background-position: center;
       background-size: cover;
-      position: relative;
     }
 
     td /*設定表格文字左右和上下居中對齊*/
@@ -46,6 +47,7 @@
     opacity: 0.8;
 
     }
+
     form{
     font-family: 微軟正黑體; 
       
@@ -54,20 +56,81 @@
     color: white;
     }
     .web{
-    width: 980px;
-    margin: auto;
-    display: flex;
-      
-    }
-      
-    .information{
-    width: 430px;
-    margin: 0 30px;
+
+    width: 100%; /*佔滿視窗*/
+
+    max-width: 980px; /*最大寬度設定，限制寬度才不會因為螢幕太大而變的內容太小*/ 
+
     }
 
-    .data{
-      width: 490px;
-        }
+    @media screen and (min-width: 768px){/*IPAD直向，大於等於最小寬度*/
+      .web{
+        display: flex; /*使用FLEX屬性排版*/
+        margin:auto;
+      }
+
+      .information{
+        /*width: 50%;*/ /*使用此設定不會因內容數量改變而影響寬度*/
+        width: 430px;
+        margin: 0 30px;
+      }
+
+      .data{
+        /*width:50%;*/
+        width: 490px;
+      }
+
+      .chart{
+      display: flex;
+      width: 768px;
+      margin: 0 auto;
+      }
+
+      #myChart{
+
+      width:50%;
+
+      }
+
+      #myChart1{
+
+      width:50%;
+
+      }
+    }
+
+    @media screen and (max-width:767px){/*小於最大寬度*/
+      .data{ /*測試值表單*/
+      border:1px solid #000; 
+      font-family: 微軟正黑體; 
+      font-size:16px; 
+      text-align:center;
+      width: 100%;
+      border-collapse:collapse;
+      margin: 10px 0px 10px 0px;
+      }
+
+      #myChart{
+      width: 100%
+      }
+
+      #myChart1{
+      width: 100%
+      }
+
+      #infor{ /*管理者模式表單*/
+      border:1px solid #000; 
+      font-family: 微軟正黑體; 
+      font-size:16px; 
+      text-align:center;
+      width: 100%;
+      border-collapse:collapse;
+      display: none;
+      margin: 10px 0px 10px 0px;
+
+      }
+    }
+
 
     #infor{
       border:2px solid #000; 
@@ -97,7 +160,7 @@
       border:2px solid #000; 
       font-family: 微軟正黑體; 
       font-size:16px; 
-      width:50%;
+      width:100%;
       text-align:center;
       border-collapse:collapse;
     }
@@ -112,19 +175,6 @@
       border:1px solid #000;
       padding:5px;
     } 
-
-    .chart{
-      display: flex;
-      width: 980px;
-      margin: 0 auto;
-    }
-
-    .bar{
-      margin: auto;}
-
-    .pie{
-      margin: auto;
-    }
     
 
     hr{
@@ -147,7 +197,7 @@
       background-color: #000;
       color: #aaa;
       font-size: 16px;
-      position: absolute;
+      position: fixed;
       left: 0;
       right: 0;
       width:100%;
@@ -274,9 +324,9 @@
 
 <th>Glu</th>
 
-<th>Desctiption</th>
+<th>Caption</th>
 
-<th>creatorors</th>
+<th>Creator</th>
 
 <th>Delete</th>
 
@@ -301,7 +351,7 @@
 <!--引入firestore SDK函式庫 -->
 <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
 
-<script type="text/javascript" src="js/bmb.js"></script>
+<script type="text/javascript" src="bmb.js"></script>
 
 
 <!-- 圖表 -->
