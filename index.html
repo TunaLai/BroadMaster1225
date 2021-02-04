@@ -78,25 +78,28 @@
       .data{
         /*width:50%;*/
         width: 490px;
+        opacity: 0;
+        transition:.5s;
       }
 
       .chart{
       display: flex;
-      width: 768px;
+      width: 980px;
       margin: 0 auto;
       }
 
       #myChart{
 
-      width:50%;
+      width:100%; 
+      height:100%;
 
       }
 
-      #myChart1{
+      /*#myChart1{
 
       width:50%;
 
-      }
+      }*/
     }
 
     @media screen and (max-width:767px){/*小於最大寬度*/
@@ -108,15 +111,17 @@
       width: 100%;
       border-collapse:collapse;
       margin: 10px 0px 10px 0px;
+      opacity: 0;
+      transition:.5s;
       }
 
       #myChart{
       width: 100%
       }
 
-      #myChart1{
+      /*#myChart1{
       width: 100%
-      }
+      }*/
 
       #infor{ /*管理者模式表單*/
       border:1px solid #000; 
@@ -192,6 +197,15 @@
             display: none;
           }
 
+    .Wdata{
+    position: relative;
+    left: -100%;
+    transition: .5s;
+    z-index: -2;
+    opacity: 0;
+
+    }      
+
     .footer{
       text-align: center;
       background-color: #000;
@@ -202,6 +216,7 @@
       right: 0;
       width:100%;
       bottom: 0;
+      z-index:2;
     }
 
 
@@ -301,12 +316,10 @@
   <label for="creator">Creator</label>
   <input type="text" class="form-control" id="creator">
 </div>
-</div>
-
 <input class="WriteData btn btn-primary" type="button" value="寫入資料" onclick="storedata()">
 
 <input class="LoadData btn btn-primary" type="button" value="讀取資料" onclick="getdata()">
-
+</div>
 
 </form>
 
@@ -364,9 +377,9 @@
 
 </div>
 
-<div class="pie"> <!-- 圓餅圖 -->
+<!-- <div class="pie"> --> <!-- 圓餅圖 -->
   
-  <canvas id="myChart1" width="490" height="500"></canvas>
+  <!-- <canvas id="myChart1" width="490" height="500"></canvas> -->
 
 <!-- <script>
 var ctx = $("#myChart1");
@@ -409,7 +422,7 @@ var myChart = new Chart(ctx, {
 });
 </script> -->
 
-</div>
+<!-- </div> -->
 
 </div>
 

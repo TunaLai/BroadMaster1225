@@ -23,7 +23,7 @@ var firebaseConfig = {
   var db = firebase.firestore();
 
   //修正boostrap未隱藏問題
-  $(".LogOut, .deluser, .LoadData, .WriteData, .Wdata").css("display", "none");
+  $(".LogOut, .deluser, .LoadData, .WriteData").css("display", "none");
 
   // $(".deluser").css("display", "none");
 
@@ -247,7 +247,11 @@ var firebaseConfig = {
 
     $(".userID").append("歡迎您&nbsp;" + email);
 
-    $(".Wdata, .LogOut, .deluser, .LoadData, .WriteData").show();
+    $(".LogOut, .deluser, .LoadData, .WriteData").show();
+
+    $(".Wdata").css({"left":"0%", "z-index":"1", "opacity":"1"});
+
+    $(".data").css("opacity","1");
 
     }).catch(function(error) {
 
