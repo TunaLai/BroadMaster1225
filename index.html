@@ -161,36 +161,27 @@
       color:#130f40;
     }
 
-    #tab{
-      border:2px solid #000; 
+    #tab{ 
       font-family: 微軟正黑體; 
-      font-size:16px; 
+      font-size:18px; 
       width:100%;
       text-align:center;
       border-collapse:collapse;
     }
 
     #tab th{ 
-      background-color: #009FCC;
       padding:10px;
-      border:1px solid #000;
-      color:#fff;
     } 
-    #tab td{ 
-      border:1px solid #000;
-      padding:5px;
-    } 
-    
 
+    #tab td{ 
+      padding:5px;
+    }
+    
     hr{
     border: 0;
     height: 1px;
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
-    }
-
-    tr th{
-      color: #D7FFEE;
     }
 
     .userID{
@@ -301,7 +292,7 @@
 
 <div class="Wdata">
   <div class="form-group">
-  <label for="project">Project Name</label>
+  <label for="project">Project</label>
   <input type="text" class="form-control" id="PName">
 </div>
 <div class="form-group">
@@ -329,21 +320,25 @@
 
 <div class="data">
 
-<table id="tab">
+<table class="table" id="tab">
 
-<tr>
+  <thead class="thead-dark">
 
-<th>Project Name</th>
+  <tr>
 
-<th>Glu</th>
+    <th>Project</th>
 
-<th>Caption</th>
+    <th>Glu</th>
 
-<th>Creator</th>
+    <th>Caption</th>
 
-<th>Delete</th>
+    <th>Creator</th>
+  
+    <th>Delete</th>
 
-</tr>
+  </tr>
+
+  </thead>
         
 </table>
 
@@ -367,7 +362,7 @@
 <script type="text/javascript" src="js/bmb.js"></script>
 
 
-<!-- 圖表 -->
+<!-- 圖表 --> 
 
 <div class="chart">
   

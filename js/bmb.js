@@ -133,7 +133,7 @@ var firebaseConfig = {
         
         for(var i = 0; i < 1; i++){
         
-        infor.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().userid + '</td>' + '<td>' + doc.data().userpw + '</td>' + '<td>' + '<button onclick = "" class = "btn btn-info">' + '待設定' + '</button>' + '</td>' + '</tr>' + '</table>'; 
+        infor.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().userid + '</td>' + '<td>' + doc.data().userpw + '</td>' + '<td>' + '<button onclick = "" class = "btn btn-info btn-sm">' + '待設定' + '</button>' + '</td>' + '</tr>' + '</table>'; 
         }
         
         });
@@ -200,9 +200,11 @@ var firebaseConfig = {
 
         $(".userID").append("歡迎您&nbsp;" + email);
 
-        $(".LogOut").show();
+        $(".LogOut, .deluser, .LoadData, .WriteData").show();
 
-        $(".deluser").show();
+        $(".Wdata").css({"left":"0%", "z-index":"1", "opacity":"1"});
+
+        $(".data").css("opacity","1");
 
         }
 
@@ -282,7 +284,9 @@ var firebaseConfig = {
 
     $(".LogIn, .sig, .userdata").show();
 
-    $(".LogOut").css("display", "none");
+    // $(".LogOut").css("display", "none");
+
+    $(".Wdata, .LogOut").hide();
 
     $(".userID").css("display", "none");
 
@@ -315,10 +319,10 @@ var firebaseConfig = {
     var user = info.email;
 
     //取得文字輸入框的值
-    var PName = document.getElementById('PName').value;
-    var tvalue = document.getElementById('tvalue').value;
-    var desctip = document.getElementById('desctip').value;
-    var creator = document.getElementById('creator').value;
+    var PName = $('#PName').val();
+    var tvalue = $('#tvalue').val();
+    var desctip = $('#desctip').val();
+    var creator = $('#creator').val();
 
     //防止客戶遺漏key in 
     if (PName === "" || tvalue === "" || desctip === "" || creator === "") {
@@ -399,17 +403,20 @@ var firebaseConfig = {
 
         for(var i = 0; i < 1; i++){
 
-        tab.innerHTML+='<table>' + '<tr style="background: #C4E1E1">' + '<td>' + doc.data().Projectname + '</td>' + '<td>' + doc.data().Glu + '</td>' + '<td>' + doc.data().Desctiption + '</td>' + '<td>' + doc.data().creator + '</td>' + '<td>' + '<button onclick = "del(this);" class = "btn btn-info">' + '刪除' + '</button>' + '</td>' + '</tr>' + '</table>'; 
+        tab.innerHTML+='<table class="table">' + '<tr style="background: #f5f6fa">' + '<td>' + doc.data().Projectname + '</td>' + '<td>' + doc.data().Glu + '</td>' + '<td>' + doc.data().Desctiption + '</td>' + '<td>' + doc.data().creator + '</td>' + '<td>' + '<button onclick = "del(this);" class = "btn btn-info btn-sm">' + '刪除' + '</button>' + '</td>' + '</tr>' + '</table>'; 
         }
 
     });
 
     alert("資料讀取完成!!");
 
+    //輸入欄位清空，以防重複輸入
+    $("#PName, #tvalue, #desctip, #creator").val("");
+
     //表格重新繪製，避免重複
     $("#myChart").remove();
 
-    $(".bar").append('<canvas id="myChart" width="500" height="500"></canvas>');
+    $(".bar").append('<canvas id="myChart" width="490" height="500"></canvas>');
 
 
     //長條圖
@@ -534,7 +541,7 @@ var firebaseConfig = {
                i = i - 1;
            }
       
-      tab.innerHTML ='<table>' +'<tr>' + '<th>' +'Project Name'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Caption'+ '</th>' + '<th>' + 'creator' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</table>';
+      tab.innerHTML ='<table class="table">'+ '<thead class = "thead-dark">' + '<tr>' + '<th>' +'Project'+ '</th>' + '<th>' +'Glu'+ '</th>' + '<th>' +'Caption'+ '</th>' + '<th>' + 'creator' + '</th>' + '<th>' + 'Delete' + '</th>' + '</tr>' + '</thead>' + '</table>';
       }
 
       else if(item === infor){
